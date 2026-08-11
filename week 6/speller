@@ -1,0 +1,27 @@
+def load_dictionary(filename):
+    dictionary = set()
+
+    with open(filename, "r") as file:
+        for word in file:
+            dictionary.add(word.strip().lower())
+
+    return dictionary
+
+
+def check(word, dictionary):
+    return word.lower() in dictionary
+
+
+def main():
+    dictionary = load_dictionary("dictionary.txt")
+
+    with open("text.txt", "r") as file:
+        for line in file:
+            for word in line.split():
+                word = word.strip(".,!?;:\"'()[]{}")
+
+                if word and not check(word, dictionary):
+                    print(word)
+
+
+main()
